@@ -14,31 +14,36 @@ change the 0.0.0.0 to localhost in the URL to use. If running from a dev box cha
 Browse to URL/security/123456789 and you should see it return the database record as JSON
 
 """
+from flask import Flask,render_template,json,redirect,url_for,session, escape, request
+
+app = Flask(__name__)
+app.secret_key = 'sec'
 import os
 import logging
-
+import pandas as pd
+import datetime
 from flask import Flask, jsonify
-from flale import start_heartbeat, url_prefix_middleware
-from blkcore.util import init_logging
-from blkdbi.dataobject import DataObject
-from beam2py import send_beam2, Beam2Payload, bms_source
-from blkbms.bms import BMS
 
-DEV_PORT = 233841
-init_logging(level=logging.INFO)
-source_id = bms_source('ASSETINFO_LITE')
-bmso = BMS(appname='flask_example_bms')
+from flask import Flask,render_template,request,json,redirect,url_for
+import csv
+from sqlalchemy import create_engine, desc
+from sqlalchemy.orm import sessionmaker
 
-start_heartbeat()
+import numpy as np
 
-dbh = DataObject('DSREAD')
+
+
 application = Flask(__name__)
-url_prefix_middleware(application, prefix='/web/pythonapps/flask_example_bms')
-
 
 @application.route('/')
-def home():
+def root():
     return 'We are home!'
+
+@application.route('/home')
+def home():
+    my_home = url_for('home', _external=True)
+    return render_template('arch.html',home_url = my_home)
+
 
 
 @application.route('/security/<cusip>')
@@ -48,12 +53,11 @@ def security_lookup(cusip):
     :param cusip: The cusip to lookup
     :return: the records as a list of dictionaries in Json format.
     """
-    payload = Beam2Payload('IDENTIFIERS', {'cusips': [cusip]})
-    resp = send_beam2(bmso, source_id, payload, 30)
-    return jsonify([r.output for r in resp])
+
+    return "Security lookup "
 
 
 if __name__ == "__main__":
     application.secret_key = 'sec'
     # The 0.0.0.0 means accept requests on all network interfaces
-    application.run(host=os.getenv('HOST', '0.0.0.0'), port=os.getenv('PORT', DEV_PORT))
+    application.run(host=os.getenv('HOST', 'localhost'))
