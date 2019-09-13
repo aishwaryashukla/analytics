@@ -1,0 +1,10 @@
+# This file allows unit test coverage to include scripts in the
+# project root directory without also including various modules
+# that can get loaded during testing / build time.
+[run]
+omit =
+    docs/*
+    test/*
+    venv/*
+    setup.py
+    */version.py

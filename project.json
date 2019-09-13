@@ -1,0 +1,8 @@
+{
+    "name": "python_flask_example",
+    "piv": "3.6.2",
+    "type": "Python-ScriptSuite",
+    "main_files": [],
+    "deploy": "L",
+    "main_package": "python_flask_example"
+}

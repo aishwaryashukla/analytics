@@ -1,0 +1,14 @@
+/build
+/build-meta
+/.coverage
+/dist
+/htmlcov
+/htmldocs
+/pkg_version.txt
+/.settings
+/venv
+/python_flask_example.egg-info
+/python_flask_example/version.py
+**/__pycache__
+uwsgi_dev.ini
+/.idea
