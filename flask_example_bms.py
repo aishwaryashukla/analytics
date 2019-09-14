@@ -16,8 +16,6 @@ Browse to URL/security/123456789 and you should see it return the database recor
 """
 from flask import Flask,render_template,json,redirect,url_for,session, escape, request
 
-app = Flask(__name__)
-app.secret_key = 'sec'
 import os
 import logging
 import pandas as pd
@@ -34,12 +32,9 @@ import numpy as np
 
 
 application = Flask(__name__)
-
+application.secret_key = 'sec'
 @application.route('/')
-def root():
-    return 'We are home!'
 
-@application.route('/home')
 def home():
     my_home = url_for('home', _external=True)
     return render_template('arch.html',home_url = my_home)
