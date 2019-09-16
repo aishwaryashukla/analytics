@@ -18,7 +18,7 @@ import os
 import logging
 
 from flask import Flask, jsonify
-from flale import start_heartbeat, url_prefix_middleware
+
 from blkcore.util import init_logging
 from blkdbi.dataobject import DataObject
 from beam2py import send_beam2, Beam2Payload, bms_source
