@@ -14,31 +14,59 @@ change the 0.0.0.0 to localhost in the URL to use. If running from a dev box cha
 Browse to URL/security/123456789 and you should see it return the database record as JSON
 
 """
+from flask import Flask,render_template,json,redirect,url_for,session, escape, request
+
 import os
 import logging
-
+import pandas as pd
+import datetime
 from flask import Flask, jsonify
+from datetime import datetime
 
-from blkcore.util import init_logging
-from blkdbi.dataobject import DataObject
-from beam2py import send_beam2, Beam2Payload, bms_source
-from blkbms.bms import BMS
+from flask import Flask,render_template,request,json,redirect,url_for
+import csv
+
+import numpy as np
+from datetime import datetime
+import pytz
+from pytz import timezone
+
 
 DEV_PORT = 233841
-init_logging(level=logging.INFO)
-source_id = bms_source('ASSETINFO_LITE')
-bmso = BMS(appname='flask_example_bms')
-
-start_heartbeat()
-
-dbh = DataObject('DSREAD')
 application = Flask(__name__)
-url_prefix_middleware(application, prefix='/web/pythonapps/flask_example_bms')
-
-
+application.secret_key = 'sec'
 @application.route('/')
+
 def home():
-    return 'We are home!'
+    my_home = url_for('home', _external=True)
+
+    '''
+    this can go inside a function
+    '''
+
+    utcmoment_naive = datetime.utcnow()
+    utcmoment = utcmoment_naive.replace(tzinfo=pytz.utc)
+    localFormat = "%Y-%m-%d %H:%M:%S"
+
+    timezones = ['America/Los_Angeles', 'Europe/Madrid', 'America/Puerto_Rico']
+    lon = str(utcmoment.astimezone(pytz.timezone('Europe/London')).hour) + \
+          ":" + str(utcmoment.astimezone(pytz.timezone('Europe/London')).minute)
+
+    india = str(utcmoment.astimezone(pytz.timezone('Asia/Kolkata')).hour) + \
+          ":" + str(utcmoment.astimezone(pytz.timezone('Asia/Kolkata')).minute)
+
+    nyc = str(utcmoment.astimezone(pytz.timezone('America/New_York')).hour) + \
+         ":" + str(utcmoment.astimezone(pytz.timezone('America/New_York')).minute)
+
+    hk = str(utcmoment.astimezone(pytz.timezone('Hongkong')).hour) + \
+          ":" + str(utcmoment.astimezone(pytz.timezone('Hongkong')).minute)
+
+    syd = str(utcmoment.astimezone(pytz.timezone('Australia/Sydney')).hour) + \
+          ":" + str(utcmoment.astimezone(pytz.timezone('Australia/Sydney')).minute)
+
+    print(india)
+    return render_template('arch.html',home_url = my_home, london = lon, india = india, nyc = nyc, syd = syd, hk = hk)
+
 
 
 @application.route('/security/<cusip>')
@@ -48,12 +76,12 @@ def security_lookup(cusip):
     :param cusip: The cusip to lookup
     :return: the records as a list of dictionaries in Json format.
     """
-    payload = Beam2Payload('IDENTIFIERS', {'cusips': [cusip]})
-    resp = send_beam2(bmso, source_id, payload, 30)
-    return jsonify([r.output for r in resp])
+
+    return "Security lookup "
 
 
 if __name__ == "__main__":
     application.secret_key = 'sec'
     # The 0.0.0.0 means accept requests on all network interfaces
-    application.run(host=os.getenv('HOST', '0.0.0.0'), port=os.getenv('PORT', DEV_PORT))
+    application.run(host=os.getenv('HOST', '0.0.0.0'))
+
