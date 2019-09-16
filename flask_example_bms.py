@@ -69,17 +69,6 @@ def home():
 
 
 
-@application.route('/security/<cusip>')
-def security_lookup(cusip):
-    """get identifiers for a cusip via AssetInfoServer
-
-    :param cusip: The cusip to lookup
-    :return: the records as a list of dictionaries in Json format.
-    """
-
-    return "Security lookup "
-
-
 if __name__ == "__main__":
     application.secret_key = 'sec'
     # The 0.0.0.0 means accept requests on all network interfaces
