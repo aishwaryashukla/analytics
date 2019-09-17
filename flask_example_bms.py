@@ -35,7 +35,15 @@ from pytz import timezone
 DEV_PORT = 233841
 application = Flask(__name__)
 application.secret_key = 'sec'
+
 @application.route('/')
+
+def root():
+    return render_template('index.html')
+
+
+
+@application.route('/home')
 
 def home():
     my_home = url_for('home', _external=True)
@@ -69,8 +77,18 @@ def home():
 
 
 
+@application.route('/security/<cusip>')
+def security_lookup(cusip):
+    """get identifiers for a cusip via AssetInfoServer
+
+    :param cusip: The cusip to lookup
+    :return: the records as a list of dictionaries in Json format.
+    """
+
+    return "Security lookup "
+
+
 if __name__ == "__main__":
     application.secret_key = 'sec'
     # The 0.0.0.0 means accept requests on all network interfaces
-    application.run(host=os.getenv('HOST', '0.0.0.0'))
-
+    application.run(host=os.getenv('HOST', 'localhost'), port=os.getenv('PORT', DEV_PORT))
