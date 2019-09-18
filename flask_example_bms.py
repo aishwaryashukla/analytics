@@ -39,9 +39,34 @@ application.secret_key = 'sec'
 @application.route('/')
 
 def root():
-    return render_template('index.html')
+    my_home = url_for('home', _external=True)
+    return render_template('index.html', home_url = my_home)
 
 
+@application.route('/homecontact')
+
+def homecontact():
+    my_home = url_for('home', _external=True)
+    return render_template('tech-contact.html', home_url = my_home)
+
+
+@application.route('/homepage1')
+
+def page1():
+    my_home = url_for('home', _external=True)
+    return render_template('tech-category-01.html', home_url = my_home)
+
+@application.route('/homepage2')
+
+def page2():
+    my_home = url_for('home', _external=True)
+    return render_template('tech-category-02.html', home_url = my_home)
+
+@application.route('/homepage3')
+
+def page3():
+    my_home = url_for('home', _external=True)
+    return render_template('tech-category-03.html', home_url = my_home)
 
 @application.route('/home')
 
