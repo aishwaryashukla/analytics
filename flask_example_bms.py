@@ -32,6 +32,7 @@ import pytz
 from pytz import timezone
 
 
+
 DEV_PORT = 233841
 application = Flask(__name__)
 application.secret_key = 'sec'
@@ -39,39 +40,40 @@ application.secret_key = 'sec'
 @application.route('/')
 
 def root():
-    my_home = url_for('home', _external=True)
+    my_home = url_for('root', _external=True)
+    print(my_home)
     return render_template('index.html', home_url = my_home)
 
 
-@application.route('/homecontact')
+@application.route('/contact')
 
-def homecontact():
-    my_home = url_for('home', _external=True)
+def contact():
+    my_home = url_for('root', _external=True)
     return render_template('tech-contact.html', home_url = my_home)
 
 
-@application.route('/homepage1')
+@application.route('/page1')
 
 def page1():
-    my_home = url_for('home', _external=True)
+    my_home = url_for('root', _external=True)
     return render_template('tech-category-01.html', home_url = my_home)
 
-@application.route('/homepage2')
+@application.route('/page2')
 
 def page2():
-    my_home = url_for('home', _external=True)
+    my_home = url_for('root', _external=True)
     return render_template('tech-category-02.html', home_url = my_home)
 
-@application.route('/homepage3')
+@application.route('/page3')
 
 def page3():
-    my_home = url_for('home', _external=True)
+    my_home = url_for('root', _external=True)
     return render_template('tech-category-03.html', home_url = my_home)
 
 @application.route('/home')
 
 def home():
-    my_home = url_for('home', _external=True)
+    my_home = url_for('root', _external=True)
 
     '''
     this can go inside a function

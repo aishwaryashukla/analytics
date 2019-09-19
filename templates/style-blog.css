@@ -1266,7 +1266,7 @@ hr.invis3 {
 }
 
 .hovereffect span.videohover::before {
-    content: url(static/images/videohover.png);
+    content: url(../images/videohover.png);
 }
 
 .blog-list .blog-meta.big-meta h4 {
