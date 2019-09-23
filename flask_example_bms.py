@@ -22,6 +22,9 @@ import pandas as pd
 import datetime
 from flask import Flask, jsonify
 from datetime import datetime
+import sys
+import got3 as got
+import pprint
 
 from flask import Flask,render_template,request,json,redirect,url_for
 import csv
@@ -70,6 +73,32 @@ def page3():
     my_home = url_for('root', _external=True)
     return render_template('tech-category-03.html', home_url = my_home)
 
+@application.route('/test')
+def test():
+    # Example 1 - Get tweets by username
+    tweetCriteria = got.manager.TweetCriteria().setUsername('arvindkejriwal').setMaxTweets(4)
+    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+    pprint.pprint(tweet)
+    print(type(tweet))
+    printTweet("### Example 1 - Get tweets by username [arvindkejriwal]", tweet)
+
+    # Example 2 - Get tweets by query search
+    tweetCriteria = got.manager.TweetCriteria().setQuerySearch('europe refugees').setSince("2015-05-01").setUntil(
+        "2015-09-30").setMaxTweets(1)
+    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+
+    printTweet("### Example 2 - Get tweets by query search [europe refugees]", tweet)
+
+    # Example 3 - Get tweets by username and bound dates
+    tweetCriteria = got.manager.TweetCriteria().setUsername("barackobama").setSince("2015-09-10").setUntil(
+        "2015-09-12").setMaxTweets(1)
+    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+
+    printTweet("### Example 3 - Get tweets by username and bound dates [barackobama, '2015-09-10', '2015-09-12']",
+               tweet)
+    print(type(tweet))
+
+    return tweet.text
 @application.route('/home')
 
 def home():
@@ -113,6 +142,18 @@ def security_lookup(cusip):
     """
 
     return "Security lookup "
+
+
+def printTweet(descr, t):
+    print(descr)
+    print("Username: %s" % t.username)
+    print("Retweets: %d" % t.retweets)
+    print("Text: %s" % t.text)
+    print("Mentions: %s" % t.mentions)
+    print("Hashtags: %s\n" % t.hashtags)
+    print("geo: %s\n" % t.geo)
+
+
 
 
 if __name__ == "__main__":

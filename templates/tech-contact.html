@@ -4,6 +4,7 @@
     <!-- Basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -484,7 +485,19 @@
                                         <input type="text" class="form-control" placeholder="Phone">
                                         <input type="text" class="form-control" placeholder="Subject">
                                         <textarea class="form-control" placeholder="Your message"></textarea>
-                                        <button type="submit" class="btn btn-primary">Send <i class="fa fa-envelope-open-o"></i></button>
+                                        <button id="sendbutton" type="submit" class="btn btn-primary">Send <i class="fa fa-envelope-open-o"></i></button>
+                                        <script>
+                                            $('#sendbutton').click(function(){
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: 'test',
+                                                    success: function(){
+                                                        alert("hello Aish");
+                                                    }
+                                                });
+                                            });
+                                            
+                                        </script>
                                     </form>
                                 </div>
                             </div>
