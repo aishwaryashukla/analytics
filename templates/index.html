@@ -89,6 +89,9 @@
                                         }
                                         </script>
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 <body onload="startTime()">
 
@@ -518,7 +521,18 @@
 												<div class="home-contact">
 													<div class="input-group">
 														<input type="text" class="form-control" placeholder="Enter search keyword for Twitter">
-														<input type="submit" class="form-control" value="Show it">
+														<input type="submit" class="form-control" value="Show it" id="showit">
+                                                        <script>
+                                                            $('#showit').click(function(){
+                                                                $.ajax({
+                                                                    type: 'GET',
+                                                                    url: 'test',
+                                                                    success: function(response){
+                                                                        alert(response)
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
 
 													</div><!-- /input-group -->
 
