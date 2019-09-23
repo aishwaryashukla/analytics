@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
     <!-- Basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Site Metas -->
-    <title>OfficeGoogle</title>
+    <title>Tech Blog - Stylish Magazine Blog Template</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -47,8 +46,51 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script>
+                                        function startTime() {
+                                            var today = new Date();
+                                            var month=new Array();
+                                              month[0]="Jan";
+                                              month[1]="Feb";
+                                              month[2]="Mar";
+                                              month[3]="Apr";
+                                              month[4]="May";
+                                              month[5]="Jun";
+                                              month[6]="Jul";
+                                              month[7]="Aug";
+                                              month[8]="Sep";
+                                              month[9]="Oct";
+                                              month[10]="Nov";
+                                              month[11]="Dec";
+
+                                              var day = new Array();
+                                              day[0] = "Sunday";
+                                              day[1]="Monday";
+                                              day[2]="Tuesday";
+                                              day[3]="Wednesday";
+                                              day[4]="Thursday";
+                                              day[5]="Friday";
+                                              day[6]="Saturday";
+<!--                                            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();-->
+                                            var date = day[today.getDay()]+", "+today.getDate()+' '+month[today.getMonth()]+' '+today.getFullYear()
+
+                                            var h = today.getHours();
+                                            var m = today.getMinutes();
+                                            var s = today.getSeconds();
+                                            m = checkTime(m);
+                                            s = checkTime(s);
+                                            document.getElementById('aishclock').innerHTML =
+                                            date + "  " +h + ":" + m ;
+                                            var t = setTimeout(startTime, 500);
+                                        }
+                                        function checkTime(i) {
+                                            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                                            return i;
+                                        }
+                                        </script>
+
 </head>
-<body>
+<body onload="startTime()">
 
     <div id="wrapper">
         <header class="tech-header header">
@@ -422,7 +464,7 @@
                             <li 
 							
 							class="nav-item dropdown has-submenu menu-large hidden-md-down hidden-sm-down hidden-xs-down">
-                                <a class="nav-link dropdown-toggle" href="{{ home_url }}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gadgets</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gadgets</a>
 							
 							
                                 <!--<a class="nav-link" href="{{ home_url }}blogpage1">Gadgets</a> -->
@@ -434,19 +476,27 @@
                                 <a class="nav-link" href="{{ home_url }}page3">Reviews</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ home_url }}contact">About Us</a>
+                                <a class="nav-link" href="{{ home_url }}contact">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ home_url }}contact">Contact Us</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav mr-2">
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#"><i class="fa fa-rss"></i></a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#"><i class="fa fa-android"></i></a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>-->
+<!--                            </li>-->
+
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-rss"></i></a>
+                                <a class="nav-link" href="#" id="aishclock" ><i  id="aishclock"></i></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-android"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>
-                            </li>
+
                         </ul>
                     </div>
                 </nav>
@@ -462,15 +512,13 @@
 								<div class="col-md-10 col-md-offset-1">
 									<div class="home-content">
 
-										<h1>Bring your Big Data to Life With Soft-Tech</h1>
-										<p>Blue Lance transforms your company's data into rich visuals for you to collect and organize so you can focus on what matters to you. Stay in the know, spot trends as they happen, and push your business further.</p>
-
+										<h1>Easing life and bringing effective tools</h1>
 										<div class="row">
 											<div class="col-md-15 col-md-offset-3 col-sm-12 col-xs-12">
 												<div class="home-contact">
 													<div class="input-group">
-														<input type="text" class="form-control" placeholder="Enter your email address">
-														<input type="submit" class="form-control" value="Use It Free">
+														<input type="text" class="form-control" placeholder="Enter search keyword for Twitter">
+														<input type="submit" class="form-control" value="Show it">
 
 													</div><!-- /input-group -->
 
@@ -512,7 +560,7 @@
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{{ home_url }}page1" title="">Top 10 phone applications and 2017 mobile design awards</a></h4>
                                         <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}page1" title="">Gadgets</a></small>
+                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}blogpage1" title="">Gadgets</a></small>
                                         <small><a href="{{ home_url }}page1" title="">21 July, 2017</a></small>
                                         <small><a href="{{ home_url }}aurthorhtml" title="">by Matilda</a></small>
                                         <small><a href="{{ home_url }}page1" title=""><i class="fa fa-eye"></i> 1114</a></small>
@@ -634,7 +682,7 @@
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{{ home_url }}page1" title="">How about evaluating your old mobile phones in different ways?</a></h4>
                                         <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}page1" title="">Gadgets</a></small>
+                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}blogpage1" title="">Gadgets</a></small>
                                         <small><a href="{{ home_url }}page1" title="">17 July, 2017</a></small>
                                         <small><a href="{{ home_url }}aurthorhtml" title="">by Matilda</a></small>
                                         <small><a href="{{ home_url }}page1" title=""><i class="fa fa-eye"></i> 4440</a></small>
@@ -722,7 +770,7 @@
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{{ home_url }}page1" title="">Google has developed a brand new algorithm. Forget all your knowledge!</a></h4>
                                         <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}page1" title="">Gadgets</a></small>
+                                        <small class="firstsmall"><a class="bg-orange" href="{{ home_url }}blogpage1" title="">Gadgets</a></small>
                                         <small><a href="{{ home_url }}page1" title="">13 July, 2017</a></small>
                                         <small><a href="{{ home_url }}aurthorhtml" title="">by Matilda</a></small>
                                         <small><a href="{{ home_url }}page1" title=""><i class="fa fa-eye"></i> 3331</a></small>
