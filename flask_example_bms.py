@@ -32,8 +32,21 @@ import csv
 import numpy as np
 from datetime import datetime
 import pytz
+# import sentiment
 from pytz import timezone
 
+import nltk
+
+nltk.download('vader_lexicon')
+nltk.download('punkt')
+
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk import sentiment
+from nltk import word_tokenize
+
+
+sid = SentimentIntensityAnalyzer()
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 DEV_PORT = 233841
@@ -73,32 +86,48 @@ def page3():
     my_home = url_for('root', _external=True)
     return render_template('tech-category-03.html', home_url = my_home)
 
-@application.route('/test')
+@application.route('/test', methods=['GET', 'POST'])
 def test():
     # Example 1 - Get tweets by username
-    tweetCriteria = got.manager.TweetCriteria().setUsername('arvindkejriwal').setMaxTweets(4)
-    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
-    pprint.pprint(tweet)
-    print(type(tweet))
-    printTweet("### Example 1 - Get tweets by username [arvindkejriwal]", tweet)
+    tsearch = request.args.get('entry2_id')
+    print(request.args.get('entry1_id'))
+
+
+    # tweetCriteria = got.manager.TweetCriteria().setUsername('arvindkejriwal').setMaxTweets(4)
+    # tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+    # pprint.pprint(tweet)
+    # print(type(tweet))
+    # printTweet("### Example 1 - Get tweets by username [arvindkejriwal]", tweet)
 
     # Example 2 - Get tweets by query search
-    tweetCriteria = got.manager.TweetCriteria().setQuerySearch('europe refugees').setSince("2015-05-01").setUntil(
-        "2015-09-30").setMaxTweets(1)
-    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+    tweetCriteria = got.manager.TweetCriteria().setQuerySearch(tsearch).setSince("2019-01-01").setUntil(
+        "2019-10-01").setMaxTweets(10)
+    tweets= got.manager.TweetManager.getTweets(tweetCriteria)
+    total_compound = 0
+    total_score ={'neg': 0.0, 'neu': 0.0, 'pos': 0.0, 'compound': 0.0}
+    for tweet in tweets:
 
-    printTweet("### Example 2 - Get tweets by query search [europe refugees]", tweet)
+        scores = sid.polarity_scores(tweet.text)
+        total_score['neg'] += scores['neg']
+        total_score['neu'] += scores['neu']
+        total_score['pos'] += scores['pos']
+        total_score['compound'] += scores['compound']
 
-    # Example 3 - Get tweets by username and bound dates
-    tweetCriteria = got.manager.TweetCriteria().setUsername("barackobama").setSince("2015-09-10").setUntil(
-        "2015-09-12").setMaxTweets(1)
-    tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+        total_compound = total_compound + scores['compound']
+        print("tsearch = {} \n tweet = {} \n score = {}".format(tsearch, tweet.text, scores))
+        # printTweet("### Get tweets by query search " + tsearch, tweet)
+    #
+    # # Example 3 - Get tweets by username and bound dates
+    # tweetCriteria = got.manager.TweetCriteria().setUsername("barackobama").setSince("2015-09-10").setUntil(
+    #     "2015-09-12").setMaxTweets(1)
+    # tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
+    #
+    # printTweet("### Example 3 - Get tweets by username and bound dates [barackobama, '2015-09-10', '2015-09-12']",
+    #            tweet)
+    # print(type(tweet))
 
-    printTweet("### Example 3 - Get tweets by username and bound dates [barackobama, '2015-09-10', '2015-09-12']",
-               tweet)
-    print(type(tweet))
-
-    return tweet.text
+    # return tweet.text
+    return "Sentiment Analysis: "+str(total_score)
 @application.route('/home')
 
 def home():

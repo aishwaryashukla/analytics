@@ -520,13 +520,16 @@
 											<div class="col-md-15 col-md-offset-3 col-sm-12 col-xs-12">
 												<div class="home-contact">
 													<div class="input-group">
-														<input type="text" class="form-control" placeholder="Enter search keyword for Twitter">
-														<input type="submit" class="form-control" value="Show it" id="showit">
+														<input type="text" name="tsearch" class="form-control" placeholder="Enter search keyword for Twitter">
+														<input type="submit" class="form-control" value="Sentiment Analysis" id="showit">
                                                         <script>
                                                             $('#showit').click(function(){
+                                                            var val = document.getElementsByName('tsearch')[0].value
+                                                            var entry1 = "second parameter"
                                                                 $.ajax({
                                                                     type: 'GET',
                                                                     url: 'test',
+                                                                    data: { entry2_id: val, entry1_id: entry1 },
                                                                     success: function(response){
                                                                         alert(response)
                                                                     }
