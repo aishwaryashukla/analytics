@@ -91,7 +91,7 @@ def test():
     # Example 1 - Get tweets by username
     tsearch = request.args.get('entry2_id')
     print(request.args.get('entry1_id'))
-
+    maxtweet = 10
 
     # tweetCriteria = got.manager.TweetCriteria().setUsername('arvindkejriwal').setMaxTweets(4)
     # tweet = got.manager.TweetManager.getTweets(tweetCriteria)[0]
@@ -101,7 +101,7 @@ def test():
 
     # Example 2 - Get tweets by query search
     tweetCriteria = got.manager.TweetCriteria().setQuerySearch(tsearch).setSince("2019-01-01").setUntil(
-        "2019-10-01").setMaxTweets(10)
+        "2019-10-01").setMaxTweets(maxtweet)
     tweets= got.manager.TweetManager.getTweets(tweetCriteria)
     total_compound = 0
     total_score ={'neg': 0.0, 'neu': 0.0, 'pos': 0.0, 'compound': 0.0}
@@ -127,6 +127,9 @@ def test():
     # print(type(tweet))
 
     # return tweet.text
+    for key in total_score.keys():
+        total_score[key] =round(total_score[key]/maxtweet , 4)
+
     return "Sentiment Analysis: "+str(total_score)
 @application.route('/home')
 
