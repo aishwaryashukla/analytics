@@ -7,7 +7,7 @@ Jinja2==2.10.1
 lxml==4.4.1
 MarkupSafe==1.1.0
 nltk==3.4.5
-numpy==1.17.2
+numpy==1.22.0
 pandas==0.25.1
 pycryptodome==3.8.1
 pyquery==1.2.10
